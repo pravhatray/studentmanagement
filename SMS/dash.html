@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dash.css">
+    <style>
+      #nav{
+    display:flex;
+    justify-content: space-between;
+    background-color: rgb(194, 58, 58);
+    color: aqua;
+    border-radius: 10px;
+    height: 50px;
+    width:98%;
+    margin-bottom: 50px;
+    padding:20px;
+}
+p a{
+    text-decoration:none;
+    color:aqua
+}
+h1{
+    text-align: center;
+    font-size: 60px;
+    margin-top: -20px;
+    padding:10px;
+}
+</style>
+</head>
+<body>
+  <div id="nav">
+       
+    <h1>MASAI</h1>
+    <p id="batch">FT-WEB-17-</p>
+    <p id="batch1">FT-WEB-18-</p>
+    <p id="batch2">FT-WEB-19-</p>
+    <p><a href="index.html">ADD STUDENT</a></p>
+</div>
+    <div>
+        <table>
+            <!-- Dont change order of columns -->
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Batch</th>
+                <th>Unit</th>
+                <th>Course</th>
+                <th>Update</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+            <!-- Append your output to tbody -->
+            </tbody>
+          </table>
+    </div>
+</body>
+</html>
+<script>
+
+  let count=0;
+  let count1=0;
+  let count2=0;
+  let arr=JSON.parse(localStorage.getItem("Students"))
+    display(arr);
+let x=JSON.parse(localStorage.getItem("trash"))||[];
+    function display(data){
+      data.forEach(function(element,index){
+
+
+        let row=document.createElement("tr");
+
+          let r1=document.createElement("td");
+          let avatar=document.createElement("img");
+          avatar.setAttribute("src",element.image);
+          r1.append(avatar);
+
+          let r2=document.createElement("td");
+          r2.innerText=element.name;
+
+          let r3=document.createElement("td");
+          r3.innerText=element.batch;
+
+          let r4=document.createElement("td");
+          r4.innerText=element.unit;
+
+          let r5=document.createElement("td");
+          r5.innerText=element.course;
+
+          let r6=document.createElement("td");
+          r6.innerText="Update";
+          r6.style.cursor="pointer";
+          r6.addEventListener("click",function(){
+            update(element,index)
+          })
+      
+         let r7=document.createElement("td");
+         r7.innerText="Remove";
+          r7.style.Color="red";
+          r7.style.cursor="pointer";
+          r7.addEventListener("click",function(){
+            dell(element,index)
+            
+          })
+
+
+          
+        if(element.batch=="FT-WEB-17")
+        {
+            count++;
+            document.querySelector("#batch").innerHTML="FT-WEB-17-"+count;
+            console.log(count);
+            console.log(batch)
+        }
+        else if(element.batch=="FT-WEB-18")
+        {
+            count1++;
+            document.querySelector("#batch1").innerHTML="FT-WEB-18-"+count1;
+        }
+        else if(element.batch=="FT-WEB-19")
+        {
+            count2++;
+            document.querySelector("#batch2").innerHTML="FT-WEB-19-"+count2;
+        }
+
+       
+
+
+          row.append(r1,r2,r3,r4,r5,r6,r7)
+          document.querySelector("tbody").append(row)
+      })
+        
+     
+    }
+
+    function dell(element,index)
+ {
+     let item=arr.splice(index,1)
+     localStorage.setItem("Students" , JSON.stringify(arr));
+     x.push(item[0])
+     window.location.reload();
+     localStorage.setItem("trash",JSON.stringify(x))
+     
+ }
+
+
+</Script>

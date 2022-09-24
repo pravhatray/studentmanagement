@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+           #nav{
+         display:flex;
+         justify-content: space-between;
+         background-color: rgb(194, 58, 58);
+         color: aqua;
+         border-radius: 10px;
+         height: 50px;
+         width:98%;
+         margin-bottom: 50px;
+         padding:20px;
+     }
+     p a{
+         text-decoration:none;
+         color:aqua
+     }
+    </style>
+</head>
+<body>
+    <div id="nav" >
+       
+        <h1>MASAI</h1>
+        <p id="b1">FT-WEB-17-</p>
+        <p id="b2">FT-WEB-18-</p>
+        <p id="b3">FT-WEB-19-</p>
+        <p><a href="dash.html">DASH-BOARD</a></p>  
+</div>
+    <h1>STUDENT MANAGEMENT SYSTEM</h1>
+    <div id="container">
+        <!-- We are using form here-->
+        <form id="form">
+
+            <label for=""> Image</label><br />
+            <input id="image" type="text" placeholder="Enter Image URL" /><br />
+
+          <label for="">Name</label><br />
+          <input id="name" type="text" placeholder="Enter name" /><br />
+         
+          <label for="">Course </label><br />
+          <select id="course">
+            <option value="select course">Select Course</option>
+            <option value="FSD">FSD</option>
+            <option value="BACKEND">BACKEND</option>
+            <option value="FRONTEND">FRONTEND</option>
+            </select><br />
+
+           
+
+            <label for="">Unit </label><br />
+            <select id="unit">
+              <option value="select unit">Select Unit</option>
+              <option value="unit-1">unit-1</option>
+              <option value="unit-2">unit-2</option>
+              <option value="unit-3">unit-3</option>
+              <option value="unit-4">unit-4</option>
+              <option value="unit-5">unit-5</option>
+              <option value="unit-6">unit-6</option>
+              </select><br />
+
+            <label for="">Batch </label><br />
+            <select id="batch">
+                <option value="select batch">Select Batch</option>
+                <option value="FT-WEB-17">FT-WEB-17</option>
+                <option value="FT-WEB-18">FT-WEB-18</option>
+                <option value="FT-WEB-19">FT-WEB-19</option>
+                </select><br />
+
+
+          <input type="submit" id="add" value="Add Student"/>
+
+        </form>
+        </div>
+</body>
+</html>
+<script>
+ 
+
+    function Student(image,name,batch,unit,course)
+    { 
+        this.image=image;
+        this.name=name;
+        this.batch=batch;
+        this.unit=unit;
+        this.course=course;   
+    }
+    let arr=JSON.parse(localStorage.getItem("Students"))||[];
+   
+    var form=document.querySelector("#form")
+    form.addEventListener("submit" , function(){
+        event.preventDefault();
+
+        let image=form.image.value;
+        let name=form.name.value;
+        let batch=form.batch.value;
+        let unit=form.unit.value;
+        let course=form.course.value;
+
+
+      
+       
+       
+    
+        let pro=new Student(image,name,batch,unit,course)
+        arr.push(pro)
+        console.log(arr)
+        localStorage.setItem("Students" , JSON.stringify(arr))
+        num();
+
+// for making the input boxes null
+
+        document.getElementById("image").value=null;
+        document.getElementById("name").value=null
+        document.getElementById("batch").value=null
+        document.getElementById("course").value=null
+        document.getElementById("unit").value=null
+
+        // document.querySelector("#form").value=null;
+    
+    })
+
+
+
+//     function calculate(){
+//     let data=JSON.parse(localStorage.getItem("Students")) ||[];
+//     let obj={}
+
+//     for(let i=0;i<data.length;i++)
+//     {
+//         if(!obj[data[i].batch])
+//         {
+//             obj[data[i].batch]=0
+//         }
+//     }
+
+//     for(let i=0;i<data.length;i++)
+//     {
+//         obj[data[i].batch]++;
+//     }
+//     console.log(obj)
+
+//     let v=[];
+//     v.push(obj)
+//     // document.querySelector("#nav").append(v)
+// }
+// // calculate();
+
+function num()
+{
+    let data=JSON.parse(localStorage.getItem("Students"))
+
+    var count=0;
+  var count1=0;
+  var count2=0;
+
+    for(let a=0;a<data.length;a++)
+{
+    if(data[a]["batch"]=="FT-WEB-17")
+        {
+            count++;
+            document.querySelector("#b1").textContent="FT-WEB-17-"+count;
+            console.log(count);
+            console.log(batch)
+        }
+        else if(data[a]["batch"]=="FT-WEB-18")
+        {
+            count1++;
+            document.querySelector("#b2").textContent="FT-WEB-18-"+count1;
+        }
+        else if(data[a]["batch"]=="FT-WEB-19")
+        {
+            count2++;
+            document.querySelector("#b3").textContent="FT-WEB-19-"+count2;
+        }
+}
+
+}
+num()
+
+    </script>
